@@ -1,7 +1,6 @@
 package de.haw;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 
 public class Mensa {
 
@@ -15,7 +14,7 @@ public class Mensa {
         }
 
         for (int i = 0; i < studenten; i++) {
-            this.getStudenten().add( new Student(2280460+i, this));
+            this.getStudenten().add( new Student(i, this));
         }
     }
 
@@ -29,14 +28,6 @@ public class Mensa {
         for (Student student : studenten) {
             student.interrupt();
         }
-    }
-
-    public synchronized Kasse stelleAnKasseAn() {
-        Kasse schnellsteKasse = getKassen().stream().min(
-                Comparator.comparingInt(Kasse::getSchlangenlaenge)).get();
-
-        schnellsteKasse.schlangeErweitern();
-        return schnellsteKasse;
     }
 
     public synchronized ArrayList<Kasse> getKassen() {
