@@ -28,6 +28,13 @@ public class Mensa {
         for (Student student : studenten) {
             student.interrupt();
         }
+        for (Student student : studenten) {
+            try {
+                student.join();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        }
     }
 
     public synchronized ArrayList<Kasse> getKassen() {
