@@ -16,34 +16,46 @@ public class Kasse {
         warteschlange = new Semaphore(1,true);
     }
 
-    public void kaufen() throws InterruptedException {
+    public void kaufen(){
         String student = Thread.currentThread().toString();
-        schlangenlaenge++;
 
-        System.out.println(ANSI_BLUE + String.format("%s: %s hat sich angestellt.", this, student) + ANSI_RESET);
+        System.err.println(ANSI_BLUE + String.format("%s: %s hat sich angestellt.", this, student) + ANSI_RESET);
 
-        warteschlange.acquire();
+        try {
+            warteschlange.acquire();
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
 
-        System.out.println(String.format(ANSI_BLUE + "%s: %s ist nun am bezahlen.", this, student) + ANSI_RESET);
+        System.err.println(String.format(ANSI_BLUE + "%s: %s ist nun am bezahlen.", this, student) + ANSI_RESET);
 
         try {
             bezahlen();
 
-            System.out.println(String.format(ANSI_BLUE + "%s: %s hat erfolgreich bezahlt.", this, student) + ANSI_RESET);
+            System.err.println(String.format(ANSI_BLUE + "%s: %s hat erfolgreich bezahlt.", this, student) + ANSI_RESET);
         } finally {
-            schlangenlaenge--;
             warteschlange.release();
-
-            System.out.println(String.format(ANSI_BLUE + "%s: %s hat die Kasse verlassen.", this, student) + ANSI_RESET);
         }
     }
 
-    private void bezahlen() throws InterruptedException {
-        Thread.sleep(MensaUtil.getZeitBezahlen());
+    private void bezahlen(){
+        try {
+            Thread.sleep(MensaUtil.getZeitBezahlen());
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
-    public synchronized int getSchlangenlaenge() {
+    public int getSchlangenlaenge() {
         return schlangenlaenge;
+    }
+
+    public void erhoeheSchlangenlaenge() {
+        schlangenlaenge++;
+    }
+
+    public void reduziereSchlangenlaenge() {
+        schlangenlaenge--;
     }
 
     @Override

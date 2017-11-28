@@ -8,12 +8,12 @@ public class Main {
     public static void main(String[] args) throws InterruptedException {
         int kassen = 3;
         int studenten = 10;
-        int dauer = 10;
+        int dauer = 10000;
 
         System.out.println(ANSI_RED + "Eine neue Mensa Simulation wird gestartet." + ANSI_RESET);
-        System.out.println(ANSI_RED + "Anzahl der Kassen:      " + kassen + ANSI_RESET);
-        System.out.println(ANSI_RED + "Anzahl der Studenten:   " + studenten + ANSI_RESET);
-        System.out.println(ANSI_RED + "Öffnungszeit:           " + dauer + ANSI_RESET);
+        System.out.println(ANSI_RED + "Anzahl der Kassen:       " + kassen + ANSI_RESET);
+        System.out.println(ANSI_RED + "Anzahl der Studenten:    " + studenten + ANSI_RESET);
+        System.out.println(ANSI_RED + "Öffnungszeit (Sekunden): " + dauer/1000 + ANSI_RESET);
         System.out.println("\n");
 
         Mensa mensa = new Mensa(kassen, studenten);
@@ -22,9 +22,7 @@ public class Main {
 
         mensa.kassenOeffnen();
 
-        System.out.println(ANSI_RED + "Die Mensa ist jetzt offen. Guten Appetit! \n" + ANSI_RESET);
-
-        Thread.sleep(dauer*1000);
+        Thread.sleep(dauer);
 
         System.out.println(ANSI_RED + "\n\nDie Mensa wird wieder geschlossen." + ANSI_RESET);
 

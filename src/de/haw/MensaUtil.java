@@ -11,11 +11,11 @@ public class MensaUtil {
 
     private static Random random = new Random();
 
-    public static synchronized int getZeitBezahlen() {
+    public static int getZeitBezahlen() {
         return random.nextInt(500) * 2 + 1000;
     }
 
-    public static synchronized int getZeitEssen() {
+    public static int getZeitEssen() {
         return random.nextInt(500) * 10 + 1000;
     }
 }
