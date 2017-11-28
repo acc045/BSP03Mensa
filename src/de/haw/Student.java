@@ -2,6 +2,9 @@ package de.haw;
 
 import java.util.Comparator;
 
+import static de.haw.MensaUtil.ANSI_GREEN;
+import static de.haw.MensaUtil.ANSI_RESET;
+
 public class Student extends Thread {
 
     private int matrikelnummer;
@@ -34,10 +37,8 @@ public class Student extends Thread {
                 System.out.println(String.format("%s hat fertig gegessen.", this));
             }
         } catch (InterruptedException e) {
-            System.out.println(String.format("%s muss warten. (Interrupted)", this));
+            System.out.println(String.format(ANSI_GREEN + "%s muss wieder in die Vorlesung. (Interrupted)" + ANSI_RESET, this));
         }
-
-        System.out.println(String.format("%s muss wieder in die Vorlesung (Thread beendet).", this));
     }
 
     private void essen() throws InterruptedException {
